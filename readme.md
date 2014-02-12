@@ -14,11 +14,13 @@ Time constraints meant I hacked this together in an hour or so.
 
 ## How to use
 
-There is an example sheet to print out for participants. It needs the fixtures added first of all.
+There is an example sheet to print out for participants. The fixtures are for the 2015 6 Nations' Championship. 
 
-After collecting all the entries, the predictions must be added to the code. 
+After collecting all the entries, the predictions must be added via the Javascript methods in index.html. 
 
-See source comments for further details. 
+Each result must then be added, again via the methods. 
+
+See the index.html source comments for further details. 
 
 ## Sweepstake Rules
 
