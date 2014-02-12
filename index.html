@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>6 Nations Sweepstake Calculator</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
+
+</head>
+<body>
+
+<div class="container">
+    <div class="col-sm-12">
+        <h1>6 Nations Sweepstake Calculator</h1>
+        <p>A Javascript based calculator for a 6Nations based sweepstake. </p>
+        <table id="results" class="table table-condensed table-striped"></table>
+    </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script>
+
+$(function(){
+
+// Example use
+// examples from 1st two weekends of 2014 6 Nations
+
+// add a player and his/her predictions
+// addScore takes (homescore, awayscore, totaltrycount)
+// the following are correct predictions, so will score 6 points per match
+Sweep.addPlayer('Mei').addScore(23, 15, 4).addScore(26, 24, 5).addScore(28,6,3).addScore(26,3,2).addScore(0,20,2).addScore(30,10,4); //.addScore().addScore().addScore().addScore().addScore().addScore().addScore().addScore().addScore();
+
+
+// add the results
+Sweep.addResult('Wal v Ita', 23, 15, 4)
+        .addResult('Fra v Eng',26, 24, 5)
+        .addResult('Ire v Sco',28,6,3)
+        .addResult('Ire v Wal',26,3,2)
+        .addResult('Sco v Eng',0,20,2)
+        .addResult('Fra v Ita', 30,10,4)
+        ;
+
+// calculate the points
+Sweep.calculate();
+
+//display in the table
+Sweep.showResult();
+
+});
+
+
+var Sweep = {
+
+    players : [],
+    
+    results : [],
+    
+    singleplayer : {},
+
+    /**
+     * Add a player to the object
+     * 
+     */
+    addPlayer : function(name)
+    {
+        this.singleplayer = { name: name, matches: [] };
+        this.players.push(this.singleplayer)
+        return this;
+    },
+    
+    /**
+     * Add a score. This must be chained to a player via addPlayer()
+     * 
+     */
+    addScore : function(home, away, tries)
+    {
+        this.singleplayer.matches.push( {
+            home : home,
+            away : away,
+            tries : tries
+        });
+        return this;
+    },
+    
+    /**
+     * Add a match result
+     * 
+     */
+    addResult : function(name, home, away, tries)
+    {
+        this.results.push({
+            name: name,
+            home : home,
+            away : away,
+            tries : tries
+        });
+        
+        return this;
+    },
+    
+    /**
+     * Caculate and store the scores
+     * 
+     */
+    calculate : function()
+    {
+        for(var i in this.players)
+        {
+            var player = this.players[i];
+            
+            player.points = 0;
+            var tr = '';
+            
+            for(var j in this.results)
+            {
+                if(typeof(player.matches[j]) === 'undefined') continue;
+                
+                var result = this.results[j];
+                
+                var match_points = 0;
+                
+                // calc points diff
+                result.pd = result.home - result.away;
+                if(result.pd < 0) result.pd = result.pd * -1;
+                
+                // compare with player's predictions
+                // home score
+                if(result.home == player.matches[j].home) match_points++;
+                // away score
+                if(result.away == player.matches[j].away) match_points++;
+                // tries are two points
+                if(result.tries == player.matches[j].tries) match_points = match_points + 2;
+                
+                // points difference
+                player.matches[j].pd = player.matches[j].home - player.matches[j].away;
+                if(player.matches[j].pd < 0) player.matches[j].pd = player.matches[j].pd * -1;                
+                if(result.pd == player.matches[j].pd) match_points++;
+                
+                // match winner prediction, home or away win
+                if( (player.matches[j].home > player.matches[j].away) && (result.home > result.away) 
+                    ||  // OR
+                    (player.matches[j].home < player.matches[j].away) && (result.home < result.away) ) match_points++;
+                 
+                // score per match
+                player.matches[j].points = match_points;
+                // total player score
+                player.points = player.points + match_points;
+            }
+            
+            //$('#results').append('<tr><td>'+player.name+'</td><td>'+player.points+'</td></tr>');
+        }
+    },
+    
+    /**
+     * Display the scores in a table
+     * 
+     */
+    showResult : function()
+    {
+        // table heading
+        var tr = '<tr>';
+        tr += '<th>Name</th>';
+        for(var i in this.results)
+        {
+            tr += '<th>'+this.results[i].name+'</th>';
+        }
+        tr += '<th>Total</th>';
+        tr += '</tr>';
+        $('#results').append(tr);
+        
+        for(var i in this.players)
+        {
+            var player = this.players[i];
+            var tr = '<tr>';
+            
+            tr += '<td>'+player.name+'</td>';
+            
+            for(var j in player.matches)
+            {
+                tr += '<td>'+player.matches[j].points+'</td>';
+            }
+            
+            tr += '<td>'+player.points+'</td>';
+            
+            tr += '</tr>';
+            
+            $('#results').append(tr);
+        }
+    }
+
+} 
+
+</script>
+</body>
+</html>
