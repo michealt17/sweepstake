@@ -1,6 +1,6 @@
 # 6Nations Sweepstake Calculator
 
-A tiny script to calculate scores for a 6 Nations rugby sweepstake.
+A tiny script to calculate scores for a 6 Nations rugby sweepstake. [Example CodePen](http://codepen.io/anon/pen/wdLBx). 
 
 ### Background
 
