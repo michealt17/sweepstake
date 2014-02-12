@@ -4,7 +4,11 @@ A tiny script to calculate scores for a 6 Nations rugby sweepstake.
 
 ### Background
 
-I wanted to create a database backed system to calculate and permanently store the results. 
+The 6 Nations is an annual  international rugby union competition involving six European sides: England, France, Ireland, Italy, Scotland and Wales. 
+
+http://www.rbs6nations.com/en/home.php
+
+I wanted to create a database backed system to calculate and permanently store the results of a sweepstake held locally. 
 
 Time constraints meant I hacked this together in an hour or so. 
 
