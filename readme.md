@@ -2,21 +2,23 @@
 
 A simple to calculate scores for a 6 Nations rugby sweepstake. Read the accompanying [blogpost](http://meigwilym.com/javascript-6-nations-sweepstake-calculator/).
 
+See the [latest 2015 results](www.clwbrygbicaernarfon.co.uk/sweep).
+
 ### Background
 
 The 6 Nations is an annual  international rugby union competition involving six European sides: England, France, Ireland, Italy, Scotland and Wales. 
 
 http://www.rbs6nations.com/en/home.php
 
-I wanted to create a database backed system to calculate and permanently store the results of a sweepstake held locally. 
+I wanted to create a way to quickly calculate and display the results of the sweepstake. 
 
 ## How to use
 
-There is an example sheet to print out for participants. The fixtures are for the 2015 6 Nations' Championship. 
+There is an example sheet to print out for participants (`table.html`). The fixtures are for the 2015 6 Nations' Championship. 
 
 After collecting all the entries, the predictions must be to `predictions.csv`. The index file can be in a browser to view the results. 
 
-See the index.html source comments for further details. 
+See the [blogpost](http://meigwilym.com/javascript-6-nations-sweepstake-calculator/) and the `index.html` source comments for further details. 
 
 ## Sweepstake Rules
 
