@@ -9,48 +9,269 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+<style>
+.modal-dialog{
+width:900px;
+}
+.border-left{
+border-left:1px solid #ddd;
+}
+/*
+th.rotate {
+  height: 140px;
+  white-space: nowrap;
+}
+
+th.rotate > div {
+  transform: translate(72px, 110px) rotate(315deg);
+  width: 30px;
+}
+th.rotate > div > span {
+  padding: 5px 10px;
+}
+td.points{
+width:40px;
+}
+*/
+</style>
 
 </head>
 <body>
 
 <div class="container">
     <div class="col-sm-12">
-        <h1>6 Nations Sweepstake Calculator</h1>
-        <p>A Javascript based calculator for a 6Nations based sweepstake. </p>
+        <h1>Sweep 6 Gwlad CR Caernarfon</h1>
         <table id="results" class="table table-condensed table-striped"></table>
+        
+        <h2>Sweepstake Rules</h2>
+
+        <ol>
+            <li>Predict the winning team, score of each team and number of tries for each of the 15 games.</li>
+            <li>Predict the final places of the six nations teams in the final table.</li>
+        </ol>
+
+        <h2>Points Allocation</h2>
+
+        <ol>
+            <li>1 point for either predicting the correct winning team or predicting a draw for each match.</li>
+            <li>1 point for the correct score of each team in each match.</li>
+            <li>1 point for the correct points difference between the teams in each match.</li>
+            <li>2 points for predicting the total number of tries (including penalty tries) in each match.</li>
+            <li>2 points for every correct place in the final Six Nations table.</li>
+            <li>Maximum available points are:
+                <ul>
+                    <li>6 points for each game;</li>
+                    <li>12 points for the final table</li>
+                </ul>
+            </li>
+            <li>In the event of two people having the same points at the end of the championship, the winner will be decided by the most correct try predictions.</li>
+        </ol>
     </div>
 </div>
 
+
+
+
+<div class="modal fade" id="player_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Enw</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cau</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
 <script>
+d3.csv("predictions.csv", function(d) {
 
-$(function(){
+  return {
+    person : { name: d.enw1+' '+d.enw2, nickname : d.nickname },
+    rankings : [d.finalFirst, d.finalSecond, d.finalThird, d.finalFourth, d.finalFifth, d.finalSixth],
+    games : [
+        {
+            home: +d.game1Home,
+            away: +d.game1Away,
+            tries: +d.game1Tries
+        },
+        {
+            home: +d.game2Home,
+            away: +d.game2Away,
+            tries: +d.game2Tries
+        },
+        {
+            home: +d.game3Home,
+            away: +d.game3Away,
+            tries: +d.game3Tries
+        },
+        {
+            home: +d.game4Home,
+            away: +d.game4Away,
+            tries: +d.game4Tries
+        },
+        {
+            home: +d.game5Home,
+            away: +d.game5Away,
+            tries: +d.game5Tries
+        },
+        {
+            home: +d.game6Home,
+            away: +d.game6Away,
+            tries: +d.game6Tries
+        },
+        {
+            home: +d.game7Home,
+            away: +d.game7Away,
+            tries: +d.game7Tries
+        },
+        {
+            home: +d.game8Home,
+            away: +d.game8Away,
+            tries: +d.game8Tries
+        },
+        {
+            home: +d.game9Home,
+            away: +d.game9Away,
+            tries: +d.game9Tries
+        },
+        {
+            home: +d.game10Home,
+            away: +d.game10Away,
+            tries: +d.game10Tries
+        },
+        {
+            home: +d.game11Home,
+            away: +d.game11Away,
+            tries: +d.game11Tries
+        },
+        {
+            home: +d.game12Home,
+            away: +d.game12Away,
+            tries: +d.game12Tries
+        },
+        {
+            home: +d.game13Home,
+            away: +d.game13Away,
+            tries: +d.game13Tries
+        },
+        {
+            home: +d.game14Home,
+            away: +d.game14Away,
+            tries: +d.game14Tries
+        },
+        {
+            home: +d.game15Home,
+            away: +d.game15Away,
+            tries: +d.game15Tries
+        },
+        {
+            home: +d.game16Home,
+            away: +d.game16Away,
+            tries: +d.game16Tries
+        }
+    ]
+  };
+}, function(error, rows) {
 
-// Example use
-// examples from 1st two weekends of 2014 6 Nations
+  for(var i in rows)
+  {
+    var player = rows[i];
+  
+    var result = Sweep.addPlayer(player.person.name);
+    for(var j in player.games)
+    {
+        result.addScore(player.games[j].home, player.games[j].away, player.games[j].tries);
+    }
+  }
+  
+    // add the results
+    // examples from the first two rounds of 6 Nations 2015
+    Sweep.addResult('Cym v Llo', 16,21,3)
+            .addResult('Eid v Iwe',3,26, 2)
+            .addResult('Ffr v Alb',15,8,1)
+            
+            .addResult('Llo v Eid', 47,17,9)
+            .addResult('Iwe v Ffr', 18,11,1)
+            .addResult('Alb v Cym', 23,26,4)
+            /*
+            .addResult('Alb v Eid', 0,0,0)
+            .addResult('Ffr v Cym', 0,0,0)
+            .addResult('Iwe v Llo', 0,0,0)
+            
+            .addResult('Cym v Iwe', 0,0,0)
+            .addResult('Llo v Alb', 0,0,0)
+            .addResult('Eid v Ffr', 0,0,0)
+            
+            .addResult('Eid v Cym', 0,0,0)
+            .addResult('Alb v Iwe', 0,0,0)
+            .addResult('Llo v Ffr', 0,0,0)
+            */
+            ;
 
-// add a player and his/her predictions
-// addScore takes (homescore, awayscore, totaltrycount)
-// the following are correct predictions, so will score 6 points per match
-Sweep.addPlayer('Mei').addScore(23, 15, 4).addScore(26, 24, 5).addScore(28,6,3).addScore(26,3,2).addScore(0,20,2).addScore(30,10,4); //.addScore().addScore().addScore().addScore().addScore().addScore().addScore().addScore().addScore();
+    // calculate the points
+    Sweep.calculate();
 
-
-// add the results
-Sweep.addResult('Wal v Ita', 23, 15, 4)
-        .addResult('Fra v Eng',26, 24, 5)
-        .addResult('Ire v Sco',28,6,3)
-        .addResult('Ire v Wal',26,3,2)
-        .addResult('Sco v Eng',0,20,2)
-        .addResult('Fra v Ita', 30,10,4)
-        ;
-
-// calculate the points
-Sweep.calculate();
-
-//display in the table
-Sweep.showResult();
-
+    //display in the table
+    Sweep.showResult();
+    
+    $('a.player_open').click(function(e)
+    {
+        e.preventDefault();
+        
+        var player = Sweep.players[$(this).data('id')];
+        var games = Sweep.results;
+        
+        var modal = $('#player_modal'); 
+        
+        $('h4.modal-title').html(player.name);
+        
+        var table = '<table class="table table-striped">';
+        table += '<tr><th>&nbsp;</th><th colspan="2" class="border-left">Gwir Ganlyniadau</th><th colspan="2" class="border-left">Darogan</th><th colspan="6" class="border-left">Pwyntiau</th></tr>';
+        table += '<tr><th>Gem</th><th class="border-left text-center">Sgor</th><th class="text-center">Ceis.</th><th class="border-left text-center">Sgor</th><th class="text-center">Ceis</th>'+
+        '<th class="text-center border-left">Winner</th><th class="text-center">Home Score</th><th class="text-center">Away Score</th><th class="text-center">Diff</th><th class="text-center">Tries</th>'+
+        '<th class="text-right">Pwyntiau</th>';
+        
+        for(var i in games)
+        {            
+            table += '<tr>';
+            table += '<td>'+games[i].name+'</td>';
+            table += '<td class="border-left text-center">'+games[i].home+' - '+games[i].away+'</td>';
+            table += '<td class="text-center">'+games[i].tries+'</td>';
+            table += '<td class="text-center border-left">'+player.matches[i].home+' - '+player.matches[i].away+'</td>';
+            table += '<td class="text-center">'+player.matches[i].tries+'</td>';
+            
+            table += '<td class="text-center border-left">'+player.matches[i].points.winner+'</td>';
+            table += '<td class="text-center">'+player.matches[i].points.score_home+'</td>';
+            table += '<td class="text-center">'+player.matches[i].points.score_away+'</td>';
+            table += '<td class="text-center">'+player.matches[i].points.diff+'</td>';
+            table += '<td class="text-center">'+player.matches[i].points.tries+'</td>';
+            
+            table += '<td class="text-right"><strong>'+player.matches[i].points.total+'</strong></td>';
+            
+            table += '</tr>';
+        }
+        
+        table += '<tr>';
+        table += '<td colspan="10" class="text-right"><strong>Cyfanswm:</strong></td>';
+        table += '<td class="text-right"><strong>'+player.points+'</strong></td>';
+        table += '</table>';
+        
+        $('div.modal-body').html(table);
+        
+        $('#player_modal').modal('show');
+    });
 });
+
 
 
 var Sweep = {
@@ -73,7 +294,7 @@ var Sweep = {
     },
     
     /**
-     * Add a score. This must be chained to a player via addPlayer()
+     * Add a match prediction. This must be chained to a player via addPlayer()
      * 
      */
     addScore : function(home, away, tries)
@@ -83,6 +304,7 @@ var Sweep = {
             away : away,
             tries : tries
         });
+        
         return this;
     },
     
@@ -91,7 +313,7 @@ var Sweep = {
      * 
      */
     addResult : function(name, home, away, tries)
-    {
+    {        
         this.results.push({
             name: name,
             home : home,
@@ -114,44 +336,66 @@ var Sweep = {
             
             player.points = 0;
             var tr = '';
-            
             for(var j in this.results)
             {
+                // only calculate for games that have been played
                 if(typeof(player.matches[j]) === 'undefined') continue;
                 
                 var result = this.results[j];
                 
-                var match_points = 0;
+                // breakdown of points allocation
+                player.matches[j].points = {winner:'',score_home:'',score_away:'',diff:'',tries:'',total:0}
                 
-                // calc points diff
-                result.pd = result.home - result.away;
-                if(result.pd < 0) result.pd = result.pd * -1;
+                // calc match points diff
+                result.pd = Math.abs(result.home - result.away);
+                
+                // match winner prediction
+                     // Home Win
+                if( (player.matches[j].home > player.matches[j].away) && (result.home > result.away) 
+                    ||  // OR away win
+                    (player.matches[j].home < player.matches[j].away) && (result.home < result.away) 
+                    || //  OR draw
+                    (player.matches[j].home == player.matches[j].away && result.home == result.away)
+                  )
+                {
+                    player.matches[j].points.winner = '1';
+                    player.matches[j].points.total++;
+                }
                 
                 // compare with player's predictions
+                
                 // home score
-                if(result.home == player.matches[j].home) match_points++;
+                if(result.home == player.matches[j].home) 
+                {
+                    player.matches[j].points.score_home = '1';
+                    player.matches[j].points.total++;
+                }
                 // away score
-                if(result.away == player.matches[j].away) match_points++;
+                if(result.away == player.matches[j].away) 
+                {
+                    player.matches[j].points.score_away = '1';
+                    player.matches[j].points.total++;
+                }
+                
+                // prediction points difference
+                player.matches[j].pd = Math.abs(player.matches[j].home - player.matches[j].away);             
+                if(result.pd == player.matches[j].pd)
+                {
+                    player.matches[j].points.diff = '1';
+                    player.matches[j].points.total++;
+                }
+                
                 // tries are two points
-                if(result.tries == player.matches[j].tries) match_points = match_points + 2;
+                if(result.tries == player.matches[j].tries)
+                {
+                    player.matches[j].points.tries = '2';
+                    player.matches[j].points.total = player.matches[j].points.total+2;
+                }
                 
-                // points difference
-                player.matches[j].pd = player.matches[j].home - player.matches[j].away;
-                if(player.matches[j].pd < 0) player.matches[j].pd = player.matches[j].pd * -1;                
-                if(result.pd == player.matches[j].pd) match_points++;
-                
-                // match winner prediction, home or away win
-                if( (player.matches[j].home > player.matches[j].away) && (result.home > result.away) 
-                    ||  // OR
-                    (player.matches[j].home < player.matches[j].away) && (result.home < result.away) ) match_points++;
-                 
-                // score per match
-                player.matches[j].points = match_points;
                 // total player score
-                player.points = player.points + match_points;
+                player.points = player.points + player.matches[j].points.total;
             }
             
-            //$('#results').append('<tr><td>'+player.name+'</td><td>'+player.points+'</td></tr>');
         }
     },
     
@@ -163,28 +407,32 @@ var Sweep = {
     {
         // table heading
         var tr = '<tr>';
-        tr += '<th>Name</th>';
+        tr += '<th>Enw</th>';
         for(var i in this.results)
         {
-            tr += '<th>'+this.results[i].name+'</th>';
+            tr += '<th class="text-center rotate"><div><span>'+this.results[i].name+'</span><div></th>';
         }
-        tr += '<th>Total</th>';
+        tr += '<th class="text-right">Cyfanswm</th>';
         tr += '</tr>';
         $('#results').append(tr);
+        
+        // sort by highest scorer
+        this.players.sort(function(a,b) { return b.points - a.points } );
         
         for(var i in this.players)
         {
             var player = this.players[i];
             var tr = '<tr>';
             
-            tr += '<td>'+player.name+'</td>';
+            tr += '<td><a href="#" class="player_open" data-id="'+i+'">'+player.name+'</a></td>';
             
             for(var j in player.matches)
             {
-                tr += '<td>'+player.matches[j].points+'</td>';
+                if(typeof(player.matches[j].points) === 'undefined') continue;
+                tr += '<td class="text-center points">'+player.matches[j].points.total+'</td>';
             }
             
-            tr += '<td>'+player.points+'</td>';
+            tr += '<td class="text-right">'+player.points+'</td>';
             
             tr += '</tr>';
             
@@ -193,7 +441,6 @@ var Sweep = {
     }
 
 } 
-
 </script>
 </body>
 </html>

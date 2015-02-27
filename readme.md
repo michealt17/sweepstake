@@ -1,6 +1,6 @@
 # 6Nations Sweepstake Calculator
 
-A tiny script to calculate scores for a 6 Nations rugby sweepstake. [Example CodePen](http://codepen.io/anon/pen/wdLBx). 
+A simple to calculate scores for a 6 Nations rugby sweepstake. Read the accompanying [blogpost](http://meigwilym.com/javascript-6-nations-sweepstake-calculator/).
 
 ### Background
 
@@ -10,15 +10,11 @@ http://www.rbs6nations.com/en/home.php
 
 I wanted to create a database backed system to calculate and permanently store the results of a sweepstake held locally. 
 
-Time constraints meant I hacked this together in an hour or so. 
-
 ## How to use
 
 There is an example sheet to print out for participants. The fixtures are for the 2015 6 Nations' Championship. 
 
-After collecting all the entries, the predictions must be added via the Javascript methods in index.html. 
-
-Each result must then be added, again via the methods. 
+After collecting all the entries, the predictions must be to `predictions.csv`. The index file can be in a browser to view the results. 
 
 See the index.html source comments for further details. 
 
@@ -43,4 +39,6 @@ See the index.html source comments for further details.
 
 Licensed under the GPLv3 http://www.gnu.org/copyleft/gpl.html
 
-Copyright 2014 Mei Gwilym
+Copyright 2015 Mei Gwilym 
+
+[@meilyrg](http://twitter.com/meilyrg)
