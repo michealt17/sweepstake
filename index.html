@@ -40,7 +40,7 @@ width:40px;
 
 <div class="container">
     <div class="col-sm-12">
-        <h1>Sweep 6 Gwlad CR Caernarfon</h1>
+        <h1>Cerner 6 Nations Sweepstake</h1>
         <table id="results" class="table table-condensed table-striped"></table>
         
         <h2>Sweepstake Rules</h2>
@@ -83,7 +83,7 @@ width:40px;
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cau</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -93,7 +93,7 @@ width:40px;
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
 <script>
-d3.csv("predictions.csv", function(d) {
+d3.csv("./predictions.csv", function(d) {
 
   return {
     person : { name: d.enw1+' '+d.enw2, nickname : d.nickname },
@@ -196,13 +196,13 @@ d3.csv("predictions.csv", function(d) {
   
     // add the results
     // examples from the first two rounds of 6 Nations 2015
-    Sweep.addResult('Cym v Llo', 16,21,3)
-            .addResult('Eid v Iwe',3,26, 2)
-            .addResult('Ffr v Alb',15,8,1)
+    Sweep.addResult('Wales v Italy', 42, 0, 5)
+            .addResult('Ireland v Scotland', 19, 12, 1)
+            .addResult('France v England', 24, 17, 5)
             
-            .addResult('Llo v Eid', 47,17,9)
-            .addResult('Iwe v Ffr', 18,11,1)
-            .addResult('Alb v Cym', 23,26,4)
+            .addResult('Ireland v Wales', 24, 14, 6)
+            .addResult('Scotland v England', 6, 13, 1)
+            .addResult('France v Italy', 35, 22, 8)
             /*
             .addResult('Alb v Eid', 0,0,0)
             .addResult('Ffr v Cym', 0,0,0)
@@ -236,10 +236,10 @@ d3.csv("predictions.csv", function(d) {
         $('h4.modal-title').html(player.name);
         
         var table = '<table class="table table-striped">';
-        table += '<tr><th>&nbsp;</th><th colspan="2" class="border-left">Gwir Ganlyniadau</th><th colspan="2" class="border-left">Darogan</th><th colspan="6" class="border-left">Pwyntiau</th></tr>';
-        table += '<tr><th>Gem</th><th class="border-left text-center">Sgor</th><th class="text-center">Ceis.</th><th class="border-left text-center">Sgor</th><th class="text-center">Ceis</th>'+
+        table += '<tr><th>&nbsp;</th><th colspan="2" class="border-left">Actual Results</th><th colspan="2" class="border-left">Prediction</th><th colspan="6" class="border-left">Points</th></tr>';
+        table += '<tr><th>Gem</th><th class="border-left text-center">Score</th><th class="text-center">Tries</th><th class="border-left text-center">Score</th><th class="text-center">Tries</th>'+
         '<th class="text-center border-left">Winner</th><th class="text-center">Home Score</th><th class="text-center">Away Score</th><th class="text-center">Diff</th><th class="text-center">Tries</th>'+
-        '<th class="text-right">Pwyntiau</th>';
+        '<th class="text-right">Points</th>';
         
         for(var i in games)
         {            
@@ -262,7 +262,7 @@ d3.csv("predictions.csv", function(d) {
         }
         
         table += '<tr>';
-        table += '<td colspan="10" class="text-right"><strong>Cyfanswm:</strong></td>';
+        table += '<td colspan="10" class="text-right"><strong>Total:</strong></td>';
         table += '<td class="text-right"><strong>'+player.points+'</strong></td>';
         table += '</table>';
         
@@ -407,12 +407,12 @@ var Sweep = {
     {
         // table heading
         var tr = '<tr>';
-        tr += '<th>Enw</th>';
+        tr += '<th>Name</th>';
         for(var i in this.results)
         {
             tr += '<th class="text-center rotate"><div><span>'+this.results[i].name+'</span><div></th>';
         }
-        tr += '<th class="text-right">Cyfanswm</th>';
+        tr += '<th class="text-right">Total</th>';
         tr += '</tr>';
         $('#results').append(tr);
         

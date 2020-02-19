@@ -1,2 +1,10 @@
 enw1,enw2,nickname,game1Home,game1Away,game1Tries,game2Home,game2Away,game2Tries,game3Home,game3Away,game3Tries,game4Home,game4Away,game4Tries,game5Home,game5Away,game5Tries,game6Home,game6Away,game6Tries,game7Home,game7Away,game7Tries,game8Home,game8Away,game8Tries,game9Home,game9Away,game9Tries,game10Home,game10Away,game10Tries,game11Home,game11Away,game11Tries,game12Home,game12Away,game12Tries,game13Home,game13Away,game13Tries,game14Home,game14Away,game14Tries,game15Home,game15Away,game15Tries,finalFirst,finalSecond,finalThird,finalFourth,finalFifth,finalSixth
-John ,Doe,J-Dog,18,12,3,6,27,3,20,11,4,35,3,5,12,9,1,12,18,3,23,12,4,3,6,0,13,7,2,18,15,4,17,5,3,6,20,3,9,15,2,6,6,0,21,12,4,wales,france,england,ireland,scotland,italy
+Anne,Rice,,21,16,3,27,15,5,20,22,5,30,21,6,20,34,5,32,12,4,19,17,3,16,15,3,25,24,5,38,16,6,25,15,4,22,29,5,18,19,1,15,50,8,20,21,3,england,ireland,france,wales,scotland,italy
+Benedicte,Ozanam,Ben,34,13,6,21,29,5,32,34,6,16,20,4,36,42,8,16,8,2,10,32,5,32,26,4,16,16,4,42,7,3,35,40,6,30,32,5,20,20,2,10,38,4,20,16,3,wales,england,france,ireland,scotland,italy
+David,Clancy,,36,15,7,28,8,5,12,19,3,30,20,6,7,21,4,39,10,5,27,20,7,18,21,3,32,17,5,40,8,7,26,13,4,18,14,4,25,20,5,3,48,9,15,9,3,england,france,ireland,wales,scotland,italy
+Liam,Gaffney,,24,15,4,18,15,3,12,21,3,18,25,5,16,28,5,19,15,3,18,23,5,32,19,6,34,21,6,36,19,6,27,18,4,15,22,4,27,20,5,15,42,7,19,24,4,england,wales,ireland,france,scotland,italy
+Santiago,Custodio,,43,12,5,28,16,4,16,36,4,30,13,4,12,32,4,23,6,2,13,13,2,16,23,3,30,38,7,35,9,4,34,13,4,18,33,5,30,16,4,15,43,4,25,33,4,ireland,england,france,wales,scotland,italy
+Clive ,Collins,,34,10,6,23,12,5,28,36,6,12,16,2,9,25,3,38,7,7,14,24,5,24,18,4,35,9,5,32,12,6,18,12,3,22,17,5,26,10,3,7,44,6,12,19,4,england,wales,ireland,france,scotland,italy
+Micheal,Tiernan,,37,10,5,24,13,4,14,20,4,20,17,5,15,31,6,27,9,3,19,22,4,17,12,3,33,18,5,32,16,6,28,24,4,12,19,3,26,18,4,6,33,4,13,15,3,england,ireland,wales,france,scotland,italy
+Jaime,Pierce,,38,3,5,31,14,6,20,23,4,28,21,7,17,31,6,48,17,9,20,27,5,29,20,5,36,20,6,48,17,8,13,16,2,22,30,6,24,18,5,17,48,8,21,23,4,england,ireland,wales,france,scotland,italy
+Anne Marie,Grimshaw,,37,9,5,21,16,3,19,15,3,17,15,3,18,26,5,45,8,8,12,24,4,29,17,5,35,18,6,39,20,6,18,9,2,24,18,4,29,18,4,21,38,7,32,23,6,england,france,ireland,wales,scotland,italy
